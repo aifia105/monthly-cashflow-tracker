@@ -10,7 +10,7 @@ const DashboardTableContent = () => {
     /* Stack on mobile, side-by-side on sm+ */
     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
       {/* Income Table */}
-      <div className="flex-1 flex flex-col gap-2 border border-zinc-400 rounded-xl p-2">
+      <div className="flex-1 flex flex-col gap-2 border border-zinc-400 rounded-xl p-3">
         <div className="flex items-center justify-between px-1">
           <span className="text-zinc-400 text-xs sm:text-sm font-normal uppercase tracking-wide">
             income items
@@ -36,12 +36,12 @@ const DashboardTableContent = () => {
           <Table className="text-zinc-200">
             <TableBody>
               {[1, 2, 3].map((i) => (
-                <TableRow key={i} className="border-zinc-800">
+                <TableRow key={i} className="border-0">
                   <TableCell className="w-[65%] sm:w-[70%] py-2 px-2 sm:px-3">
                     <Input
                       readOnly
                       placeholder="Income label"
-                      className="border border-zinc-700 bg-transparent text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
+                      className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                     />
                   </TableCell>
                   <TableCell className="w-[35%] sm:w-[30%] py-2 px-2 sm:px-3">
@@ -49,7 +49,7 @@ const DashboardTableContent = () => {
                       <Input
                         readOnly
                         placeholder="00.00$"
-                        className="border border-zinc-700 bg-transparent text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
+                        className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                       />
                       <Button
                         variant={"ghost"}
@@ -94,12 +94,12 @@ const DashboardTableContent = () => {
           <Table className="text-zinc-200">
             <TableBody>
               {[1, 2, 3].map((i) => (
-                <TableRow key={i} className="border-zinc-800">
+                <TableRow key={i} className="border-0">
                   <TableCell className="w-[65%] sm:w-[70%] py-2 px-2 sm:px-3">
                     <Input
                       readOnly
                       placeholder="Expense label"
-                      className="border border-zinc-700 bg-transparent text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
+                      className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                     />
                   </TableCell>
                   <TableCell className="w-[35%] sm:w-[30%] py-2 px-2 sm:px-3">
@@ -107,7 +107,7 @@ const DashboardTableContent = () => {
                       <Input
                         readOnly
                         placeholder="00.00$"
-                        className="border border-zinc-700 bg-transparent text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
+                        className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                       />
                       <Button
                         variant={"ghost"}

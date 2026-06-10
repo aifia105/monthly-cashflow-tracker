@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jetbrainsMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-screen flex flex-col font-sans">
         <div className="flex flex-col flex-1 items-center justify-start bg-zinc-50 dark:bg-black font-sans relative overflow-hidden">
           <BackgroundRippleEffect />
           {children}
