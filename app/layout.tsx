@@ -1,15 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const jetbrainsMono = localFont({
+  src: [
+    {
+      path: "../fonts/JetBrainsMono-ExtraLight.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../fonts/JetBrainsMono-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../fonts/JetBrainsMono-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../fonts/JetBrainsMono-Medium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    { path: "../fonts/JetBrainsMono-Bold.ttf", weight: "700", style: "normal" },
+    {
+      path: "../fonts/JetBrainsMono-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +46,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${jetbrainsMono.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans">
+        <div className="flex flex-col flex-1 items-center justify-start bg-zinc-50 dark:bg-black font-sans relative overflow-hidden">
+          <BackgroundRippleEffect />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
