@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 
+import TRPCProvider from "@/components/providers/TRPCProvider";
+
 const jetbrainsMono = localFont({
   src: [
     {
@@ -47,11 +49,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${jetbrainsMono.variable} h-full antialiased`}>
-      <body className="min-h-screen flex flex-col font-sans">
-        <div className="flex flex-col flex-1 items-center justify-start bg-zinc-50 dark:bg-black font-sans relative overflow-hidden">
-          <BackgroundRippleEffect />
-          {children}
-        </div>
+      <body suppressHydrationWarning className="min-h-screen flex flex-col font-sans">
+        <TRPCProvider>
+          <div className="flex flex-col flex-1 items-center justify-start bg-zinc-50 dark:bg-black font-sans relative overflow-hidden">
+            <BackgroundRippleEffect />
+            {children}
+          </div>
+        </TRPCProvider>
       </body>
     </html>
   );

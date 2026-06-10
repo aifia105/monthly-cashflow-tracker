@@ -4,8 +4,20 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Plus, Trash2 } from "lucide-react";
 import { Input } from "../ui/input";
+import AddMonthYearDialog from "../dialog/AddMonthYearDialog";
 
-const DashboardTableContent = () => {
+const DashboardTableContent = ({
+  data,
+  selectedMonthYear,
+}: {
+  data: any;
+  selectedMonthYear: string;
+}) => {
+  const incomes =
+    data.transactions?.filter((t: any) => t.type === "income") || [];
+  const expenses =
+    data.transactions?.filter((t: any) => t.type === "expense") || [];
+
   return (
     /* Stack on mobile, side-by-side on sm+ */
     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
@@ -20,26 +32,34 @@ const DashboardTableContent = () => {
               variant={"outline"}
               className="text-zinc-700 text-xs sm:text-sm mr-1 font-medium p-2 bg-black"
             >
-              <span className="text-green-700">1400$</span>
+              <span className="text-green-700">{data.totalIncome || 0}$</span>
             </Badge>
-            <Button
-              variant={"ghost"}
-              className="text-zinc-200 text-xs sm:text-sm hover:bg-white/60 hover:text-zinc-900 cursor-pointer px-2 sm:px-3"
-            >
-              <Plus className="size-3" />
-              <span className="hidden xs:inline sm:inline">Add income</span>
-            </Button>
+            <AddMonthYearDialog
+              selectedMonthYear={selectedMonthYear}
+              type="income"
+            />
           </div>
         </div>
 
         <div className="overflow-hidden">
           <Table className="text-zinc-200">
             <TableBody>
-              {[1, 2, 3].map((i) => (
-                <TableRow key={i} className="border-0">
+              {incomes.length === 0 && (
+                <TableRow className="border-0">
+                  <TableCell
+                    colSpan={2}
+                    className="text-center text-zinc-500 py-4"
+                  >
+                    No income items
+                  </TableCell>
+                </TableRow>
+              )}
+              {incomes.map((t: any) => (
+                <TableRow key={t._id} className="border-0">
                   <TableCell className="w-[65%] sm:w-[70%] py-2 px-2 sm:px-3">
                     <Input
                       readOnly
+                      value={t.title}
                       placeholder="Income label"
                       className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                     />
@@ -48,6 +68,7 @@ const DashboardTableContent = () => {
                     <div className="flex items-center gap-1 sm:gap-2">
                       <Input
                         readOnly
+                        value={`${t.amount}$`}
                         placeholder="00.00$"
                         className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                       />
@@ -78,26 +99,34 @@ const DashboardTableContent = () => {
               variant={"outline"}
               className="text-zinc-700 text-xs sm:text-sm mr-1 font-medium p-2 bg-black"
             >
-              <span className="text-red-500">800$</span>
+              <span className="text-red-500">{data.totalExpense || 0}$</span>
             </Badge>
-            <Button
-              variant={"ghost"}
-              className="text-zinc-200 text-xs sm:text-sm hover:bg-white/60 hover:text-zinc-900 cursor-pointer px-2 sm:px-3"
-            >
-              <Plus className="size-3" />
-              <span className="hidden xs:inline sm:inline">Add expense</span>
-            </Button>
+            <AddMonthYearDialog
+              selectedMonthYear={selectedMonthYear}
+              type="expense"
+            />
           </div>
         </div>
 
         <div className="overflow-hidden">
           <Table className="text-zinc-200">
             <TableBody>
-              {[1, 2, 3].map((i) => (
-                <TableRow key={i} className="border-0">
+              {expenses.length === 0 && (
+                <TableRow className="border-0">
+                  <TableCell
+                    colSpan={2}
+                    className="text-center text-zinc-500 py-4"
+                  >
+                    No expense items
+                  </TableCell>
+                </TableRow>
+              )}
+              {expenses.map((t: any) => (
+                <TableRow key={t._id} className="border-0">
                   <TableCell className="w-[65%] sm:w-[70%] py-2 px-2 sm:px-3">
                     <Input
                       readOnly
+                      value={t.title}
                       placeholder="Expense label"
                       className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                     />
@@ -106,6 +135,7 @@ const DashboardTableContent = () => {
                     <div className="flex items-center gap-1 sm:gap-2">
                       <Input
                         readOnly
+                        value={`${t.amount}$`}
                         placeholder="00.00$"
                         className="border-0 bg-zinc-900 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
                       />

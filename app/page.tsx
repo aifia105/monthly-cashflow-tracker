@@ -20,7 +20,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col items-center gap-3">
           <Button
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/secret")}
             className="mt-2 px-6 py-4 border border-white text-zinc-200 text-[16px] font-medium hover:bg-white/60 hover:text-zinc-900 transition-colors"
           >
             Find out here

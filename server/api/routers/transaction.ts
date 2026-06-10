@@ -37,6 +37,7 @@ export const transactionRouter = router({
     )
     .mutation(async ({ input }) => {
       await connectDB();
+      const incField = input.type === "income" ? "totalIncome" : "totalExpense";
       const transaction = await Transaction.updateOne(
         { monthYear: input.monthYear },
         {
@@ -47,6 +48,9 @@ export const transactionRouter = router({
               type: input.type,
             },
           },
+          $inc: {
+            [incField]: input.amount,
+          },
         },
       );
       return transaction;
@@ -55,16 +59,22 @@ export const transactionRouter = router({
     .input(
       z.object({
         monthYear: z.string(),
-        title: z.string(),
+        id: z.string(),
+        amount: z.number(),
+        type: z.string(),
       }),
     )
     .mutation(async ({ input }) => {
       await connectDB();
+      const decField = input.type === "income" ? "totalIncome" : "totalExpense";
       const transaction = await Transaction.updateOne(
         { monthYear: input.monthYear },
         {
           $pull: {
-            transactions: { title: input.title },
+            transactions: { _id: input.id },
+          },
+          $inc: {
+            [decField]: -input.amount,
           },
         },
       );

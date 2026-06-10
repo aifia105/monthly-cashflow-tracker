@@ -5,22 +5,26 @@ import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
-const DashboardTableHeader = () => {
+const DashboardTableHeader = ({ data }: { data: any }) => {
+  const balance = (data.totalIncome || 0) - (data.totalExpense || 0);
+
   return (
     <>
       <div className="flex flex-row justify-between items-start mb-2">
         <div className="flex flex-col gap-1 mb-4">
           <h3 className="text-zinc-200 text-lg font-medium capitalize tracking-wide">
-            Month Year
+            Month
           </h3>
-          <p className="text-zinc-400 text-sm">2026-10-10</p>
+          <p className="text-zinc-400 text-sm">{data.monthYear}</p>
         </div>
         <div className="flex items-center gap-1">
           <Badge
             variant={"outline"}
             className="text-zinc-700 text-sm sm:text-lg mr-1 sm:mr-3 font-medium p-2 bg-black"
           >
-            <span className="text-green-700">1400$</span>
+            <span className={balance >= 0 ? "text-green-700" : "text-red-500"}>
+              {balance}$
+            </span>
           </Badge>
           <Badge
             variant={"ghost"}
@@ -42,6 +46,7 @@ const DashboardTableHeader = () => {
           </label>
           <Input
             readOnly
+            value={data.monthYear}
             placeholder="--/--/----"
             className="border border-zinc-400 text-zinc-400 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0"
           />
@@ -52,6 +57,7 @@ const DashboardTableHeader = () => {
           </label>
           <Input
             readOnly
+            value={`${data.totalIncome || 0}$`}
             placeholder="00.00$"
             className="border border-zinc-400 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0"
           />
@@ -62,6 +68,7 @@ const DashboardTableHeader = () => {
           </label>
           <Input
             readOnly
+            value={`${data.totalExpense || 0}$`}
             placeholder="00.00$"
             className="border border-zinc-400 text-zinc-200 h-9 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0"
           />
@@ -73,6 +80,7 @@ const DashboardTableHeader = () => {
           </label>
           <Textarea
             readOnly
+            value={data.note || ""}
             placeholder="Notes about this month"
             className="border border-zinc-400 text-zinc-200 w-full cursor-default focus-visible:ring-0 focus-visible:ring-offset-0 resize-none"
           />
